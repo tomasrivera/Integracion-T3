@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     padding: 10,
   },
   list: {
-    height: '50vh',
+    height: '45vh',
     overflow: 'auto',
   },
   paper: {
@@ -18,17 +18,21 @@ const useStyles = makeStyles(() => ({
     marginBottom: 5,
   },
   paperInline: {
-    flexDirection: 'horizontal',
+    // flex: 'grow',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
   },
   name: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginRight: 15,
+    marginRight: 10,
+    display: 'inline-block',
+  },
+  date: {
+    display: 'inline-block',
   },
   message: {
-    alignText: 'right',
-    alignSelf: 'right',
-    flexGrow: 1,
   },
   inputText: {
     width: '75%',
@@ -53,6 +57,11 @@ export default function Chat({messages, send}) {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
 
+  const toDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toTimeString();
+  }
+
   const onClick = () => {
     if (name) {
       send(name, input);
@@ -75,7 +84,7 @@ export default function Chat({messages, send}) {
           <Paper key={`message-${i}`} className={classes.paper}>
             <Container className={classes.paperInline}>
               <Typography className={classes.name} variant="body1">{message.name}</Typography>
-              <Typography variant="body1">{message.date}</Typography>
+              <Typography className={classes.date} variant="body1" align='right'>{toDate(message.date)}</Typography>
             </Container>
             <Container>
               <Typography className={classes.message} variant="body1" align='right'>{message.message}</Typography>

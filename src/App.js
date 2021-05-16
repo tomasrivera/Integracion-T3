@@ -10,6 +10,7 @@ import LocalAirportOutlinedIcon from '@material-ui/icons/LocalAirportOutlined';
 import { io } from 'socket.io-client';
 import Map from './components/Map';
 import Chat from './components/Chat';
+import Flights from './components/Flights';
 
 
 const ENDPOINT = "wss://tarea-3-websocket.2021-1.tallerdeintegracion.cl";
@@ -96,7 +97,7 @@ export default function SimpleContainer() {
           <Chat messages={chat} send={sendMessage}/>
         </Grid>
         <Grid item xs={12}>
-            <p>Hola</p>
+          <Flights flights={flights} />
         </Grid>
       </Grid>
     </Container>

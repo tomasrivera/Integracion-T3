@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { MapContainer, TileLayer, Marker, Pane, Polyline, Circle, LayerGroup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Pane, Polyline, Circle, LayerGroup, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import marker from '../assets/plane.svg';
@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
-    height: '70vh',
+    height: '65vh',
     width: '100%',
   },
 }));
@@ -70,6 +70,7 @@ export default function Map({positions, flights, positionsHistory}) {
           />
         ))}
       </Pane>
+      <Pane name="hover-tooltip-plane" style={{ zIndex: 502 }}></Pane>
       <Pane name="plane-markers" style={{ zIndex: 501 }}>
         {Object.entries(positions).map(([code, plane]) => {
           return (
@@ -77,7 +78,11 @@ export default function Map({positions, flights, positionsHistory}) {
               key={`marker-${code}`}
               icon={planeIcon}
               position={[plane.position[0], plane.position[1]]}
-            />
+            >
+              <Pane name={`hover-tooltip-plane-${code}`} style={{ zIndex: 502 }}>
+                <Tooltip>{`Code: ${code}`}</Tooltip>
+              </Pane>
+            </Marker>
           );
         })}
       </Pane>
